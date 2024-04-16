@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Heading, Text, VStack, Select, Textarea, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Spinner, Image } from "@chakra-ui/react";
+import { Box, Button, Heading, Text, VStack, Select, Textarea, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Spinner, Image, ModalFooter } from "@chakra-ui/react";
 import { FaBrain, FaRocket, FaUserMd } from "react-icons/fa";
 
 const templates = [
@@ -55,6 +55,43 @@ const Index = () => {
     onClose();
   };
 
+  const ReportGenerator = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    return (
+      <>
+        <Button colorScheme="blue" size="lg" onClick={onOpen}>
+          Gerar Laudos
+        </Button>
+        <Modal isOpen={isOpen} onClose={onClose} size="xl">
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Gerar Laudos</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <VStack spacing={4}>
+                <Button colorScheme="teal" size="md">
+                  Gerador de Impressões
+                </Button>
+                <Button colorScheme="teal" size="md">
+                  Gerador de Descrições Radiológicas
+                </Button>
+                <Button colorScheme="teal" size="md">
+                  Gere Seus Laudos por Templates
+                </Button>
+              </VStack>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Fechar
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    );
+  };
+
   return (
     <Box>
       <Box as="nav" position="fixed" top={0} left={0} right={0} zIndex={999} bg="linear-gradient(45deg, #2980b9, #6dd5fa)" py={4} px={8} display="flex" justifyContent="space-between" alignItems="center" boxShadow="0 2px 10px rgba(0, 0, 0, 0.1)" backdropFilter="blur(10px)">
@@ -82,9 +119,7 @@ const Index = () => {
           <Text fontSize="xl" mb={8} color="gray.600">
             Gere laudos radiológicos com rapidez e precisão usando a inteligência artificial
           </Text>
-          <Button colorScheme="blue" size="lg" onClick={onOpen}>
-            Gerar Laudo
-          </Button>
+          <ReportGenerator />
         </Box>
       </Box>
 
