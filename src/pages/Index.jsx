@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Box, Button, Heading, Text, VStack, Select, Textarea, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Spinner, Image, Input } from "@chakra-ui/react";
-import { FaBrain, FaRocket, FaUserMd, FaGoogle } from "react-icons/fa";
+import React, { useState } from "react";
+import { Box, Button, Heading, Text, VStack, Select, Textarea, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Spinner, Image, ModalFooter } from "@chakra-ui/react";
+import { FaBrain, FaRocket, FaUserMd } from "react-icons/fa";
 
 const templates = [
   { value: "Template 1", label: "Template 1" },
@@ -55,8 +55,41 @@ const Index = () => {
     onClose();
   };
 
-  const handleGoogleSignIn = () => {
-    console.log("Initiate Google Sign-In process");
+  const ReportGenerator = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    return (
+      <>
+        <Button colorScheme="blue" size="lg" onClick={onOpen}>
+          Gerar Laudos
+        </Button>
+        <Modal isOpen={isOpen} onClose={onClose} size="xl">
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Gerar Laudos</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <VStack spacing={4}>
+                <Button colorScheme="teal" size="md">
+                  Gerador de Impressões
+                </Button>
+                <Button colorScheme="teal" size="md">
+                  Gerador de Descrições Radiológicas
+                </Button>
+                <Button colorScheme="teal" size="md">
+                  Gere Seus Laudos por Templates
+                </Button>
+              </VStack>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Fechar
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    );
   };
 
   return (
@@ -86,18 +119,14 @@ const Index = () => {
           <Text fontSize="xl" mb={8} color="gray.600">
             Gere laudos radiológicos com rapidez e precisão usando a inteligência artificial
           </Text>
-          <Button colorScheme="blue" size="lg" onClick={onOpen}>
-            Gerar Laudo
-          </Button>
+          <ReportGenerator />
         </Box>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader bg="linear-gradient(to right, #6dd5fa, #2980b9)" color="white" fontSize="2xl" py={4} textAlign="center">
-            Stunning Report Generator
-          </ModalHeader>
+          <ModalHeader>Gerar Laudo</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {isLoading ? (
@@ -106,19 +135,21 @@ const Index = () => {
                 <Text>{loadingText}</Text>
               </VStack>
             ) : (
-              <VStack spacing={6} align="stretch" p={5}>
-                <Select placeholder="Select a template" value={selectedTemplate} onChange={handleTemplateChange} size="lg" borderColor="blue.500">
-                  {templates.map((template) => (
-                    <option key={template.value} value={template.value}>
-                      {template.label}
-                    </option>
-                  ))}
-                </Select>
-                <Textarea placeholder="Enter findings" value={findings} onChange={handleFindingsChange} rows={6} borderColor="blue.500" />
-                <Button type="submit" colorScheme="blue" size="lg" boxShadow="0px 0px 15px rgba(45, 55, 72, 0.4)" _hover={{ boxShadow: "0px 0px 20px rgba(45, 55, 72, 0.5)" }} onClick={handleSubmit}>
-                  Generate Report
-                </Button>
-              </VStack>
+              <form onSubmit={handleSubmit}>
+                <VStack spacing={4} align="stretch">
+                  <Select placeholder="Selecione um template" value={selectedTemplate} onChange={handleTemplateChange}>
+                    {templates.map((template) => (
+                      <option key={template.value} value={template.value}>
+                        {template.label}
+                      </option>
+                    ))}
+                  </Select>
+                  <Textarea placeholder="Digite os achados" value={findings} onChange={handleFindingsChange} rows={8} />
+                  <Button type="submit" colorScheme="blue" size="lg">
+                    Gerar Laudo
+                  </Button>
+                </VStack>
+              </form>
             )}
           </ModalBody>
         </ModalContent>
@@ -203,10 +234,7 @@ const Index = () => {
         </Box>
       </Box>
 
-      <Box as="footer" py={8} bg="linear-gradient(45deg, #2980b9, #6dd5fa)" display="flex" flexDirection="column" alignItems="center">
-        <Button leftIcon={<FaGoogle />} colorScheme="red" onClick={handleGoogleSignIn}>
-          Sign in with Google
-        </Button>
+      <Box as="footer" py={8} bg="linear-gradient(45deg, #2980b9, #6dd5fa)">
         <Box maxW="6xl" mx="auto" px={8} display="flex" justifyContent="space-between" alignItems="center">
           <Heading as="h4" size="md" color="white" textShadow="2px 2px 4px rgba(0, 0, 0, 0.3)">
             LaudAI
@@ -235,21 +263,6 @@ const Index = () => {
           </Box>
         </Box>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Quick Reporting Tools</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <VStack spacing={4}>
-              <Input placeholder="Enter report body" />
-              <Button colorScheme="blue">Send as 'exame'</Button>
-              <Textarea placeholder="Describe findings" rows={4} />
-              <Button colorScheme="blue">Describe Findings</Button>
-            </VStack>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
     </Box>
   );
 };
