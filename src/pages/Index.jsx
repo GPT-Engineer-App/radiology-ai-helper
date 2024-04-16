@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Box, Button, Heading, Text, VStack, Select, Textarea, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Spinner, Image } from "@chakra-ui/react";
-import { FaBrain, FaRocket, FaUserMd } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { Box, Button, Heading, Text, VStack, Select, Textarea, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Spinner, Image, Input } from "@chakra-ui/react";
+import { FaBrain, FaRocket, FaUserMd, FaGoogle } from "react-icons/fa";
 
 const templates = [
   { value: "Template 1", label: "Template 1" },
@@ -199,7 +199,10 @@ const Index = () => {
         </Box>
       </Box>
 
-      <Box as="footer" py={8} bg="linear-gradient(45deg, #2980b9, #6dd5fa)">
+      <Box as="footer" py={8} bg="linear-gradient(45deg, #2980b9, #6dd5fa)" display="flex" flexDirection="column" alignItems="center">
+        <Button leftIcon={<FaGoogle />} colorScheme="red" onClick={() => alert("Google Sign-In not fully implemented")}>
+          Sign in with Google
+        </Button>
         <Box maxW="6xl" mx="auto" px={8} display="flex" justifyContent="space-between" alignItems="center">
           <Heading as="h4" size="md" color="white" textShadow="2px 2px 4px rgba(0, 0, 0, 0.3)">
             LaudAI
@@ -228,6 +231,21 @@ const Index = () => {
           </Box>
         </Box>
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Quick Reporting Tools</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack spacing={4}>
+              <Input placeholder="Enter report body" />
+              <Button colorScheme="blue">Send as 'exame'</Button>
+              <Textarea placeholder="Describe findings" rows={4} />
+              <Button colorScheme="blue">Describe Findings</Button>
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
