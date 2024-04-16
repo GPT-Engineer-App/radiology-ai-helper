@@ -55,6 +55,10 @@ const Index = () => {
     onClose();
   };
 
+  const handleGoogleSignIn = () => {
+    console.log("Initiate Google Sign-In process");
+  };
+
   return (
     <Box>
       <Box as="nav" position="fixed" top={0} left={0} right={0} zIndex={999} bg="linear-gradient(45deg, #2980b9, #6dd5fa)" py={4} px={8} display="flex" justifyContent="space-between" alignItems="center" boxShadow="0 2px 10px rgba(0, 0, 0, 0.1)" backdropFilter="blur(10px)">
@@ -200,7 +204,7 @@ const Index = () => {
       </Box>
 
       <Box as="footer" py={8} bg="linear-gradient(45deg, #2980b9, #6dd5fa)" display="flex" flexDirection="column" alignItems="center">
-        <Button leftIcon={<FaGoogle />} colorScheme="red" onClick={() => alert("Google Sign-In not fully implemented")}>
+        <Button leftIcon={<FaGoogle />} colorScheme="red" onClick={handleGoogleSignIn}>
           Sign in with Google
         </Button>
         <Box maxW="6xl" mx="auto" px={8} display="flex" justifyContent="space-between" alignItems="center">
