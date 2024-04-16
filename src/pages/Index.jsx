@@ -88,10 +88,12 @@ const Index = () => {
         </Box>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen} onClose={onClose} size="2xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Gerar Laudo</ModalHeader>
+          <ModalHeader bg="linear-gradient(to right, #6dd5fa, #2980b9)" color="white" fontSize="2xl" py={4} textAlign="center">
+            Stunning Report Generator
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {isLoading ? (
@@ -100,21 +102,19 @@ const Index = () => {
                 <Text>{loadingText}</Text>
               </VStack>
             ) : (
-              <form onSubmit={handleSubmit}>
-                <VStack spacing={4} align="stretch">
-                  <Select placeholder="Selecione um template" value={selectedTemplate} onChange={handleTemplateChange}>
-                    {templates.map((template) => (
-                      <option key={template.value} value={template.value}>
-                        {template.label}
-                      </option>
-                    ))}
-                  </Select>
-                  <Textarea placeholder="Digite os achados" value={findings} onChange={handleFindingsChange} rows={8} />
-                  <Button type="submit" colorScheme="blue" size="lg">
-                    Gerar Laudo
-                  </Button>
-                </VStack>
-              </form>
+              <VStack spacing={6} align="stretch" p={5}>
+                <Select placeholder="Select a template" value={selectedTemplate} onChange={handleTemplateChange} size="lg" borderColor="blue.500">
+                  {templates.map((template) => (
+                    <option key={template.value} value={template.value}>
+                      {template.label}
+                    </option>
+                  ))}
+                </Select>
+                <Textarea placeholder="Enter findings" value={findings} onChange={handleFindingsChange} rows={6} borderColor="blue.500" />
+                <Button type="submit" colorScheme="blue" size="lg" boxShadow="0px 0px 15px rgba(45, 55, 72, 0.4)" _hover={{ boxShadow: "0px 0px 20px rgba(45, 55, 72, 0.5)" }} onClick={handleSubmit}>
+                  Generate Report
+                </Button>
+              </VStack>
             )}
           </ModalBody>
         </ModalContent>
