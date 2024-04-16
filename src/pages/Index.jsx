@@ -6,7 +6,13 @@ const templates = [
   { value: "Template 1", label: "Template 1" },
   { value: "Template 2", label: "Template 2" },
   { value: "Template 3", label: "Template 3" },
-  // Adicione mais templates aqui
+  { value: "Template 4", label: "Template 4" },
+  { value: "Template 5", label: "Template 5" },
+  { value: "Template 6", label: "Template 6" },
+  { value: "Template 7", label: "Template 7" },
+  { value: "Template 8", label: "Template 8" },
+  { value: "Template 9", label: "Template 9" },
+  { value: "Template 10", label: "Template 10" },
 ];
 
 const Index = () => {
@@ -36,17 +42,14 @@ const Index = () => {
       await new Promise((resolve) => setTimeout(resolve, 3000));
     }
 
-    // Envie o template selecionado para a IA via POST
-    // Exemplo:
-    // const response = await fetch("/api/generate-report", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ template: selectedTemplate, findings }),
-    // });
-    // const data = await response.json();
-    // Faça algo com a resposta da IA
+    const response = await fetch("/api/generate-report", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ template: selectedTemplate, findings }),
+    });
+    const data = await response.json();
 
     setIsLoading(false);
     onClose();
